@@ -1,0 +1,77 @@
+<template>
+  <div class="components-container">
+    <div class="wrapper">
+    <el-button type="primary" @click="dialogTableVisible = true">
+      open a Drag Dialog
+    </el-button>
+    </div>
+
+    <el-dialog v-el-drag-dialog 
+        :visible.sync="dialogTableVisible" 
+        title="Shipping address" 
+        @dragDialog="handleDrag">
+        
+      <el-select 
+          ref="select" 
+          v-model="value" 
+          placeholder="Bitte auswählen...">
+        <el-option 
+            v-for="item in options" 
+            :key="item.value" 
+            :label="item.label" 
+            :value="item.value" />
+      </el-select>
+
+      <el-table :data="gridData">
+        <el-table-column property="date" label="Date" width="150" />
+        <el-table-column property="name" label="Name" width="200" />
+        <el-table-column property="address" label="Address" />
+      </el-table>
+
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import elDragDialog from '@/directive/el-drag-dialog'
+
+export default {
+  name: 'DragDialogDemo',
+  directives: { elDragDialog },
+  data() {
+    return {
+      dialogTableVisible: false,
+      options: [
+        { value: 'option1', label: 'Goldener Kuchen' },
+        { value: 'option2', label: 'Doppelte Hautmilch' },
+        { value: 'option3', label: 'Gebratene Auster' },
+        { value: 'option4', label: 'Drachenbartnudeln' }
+      ],
+      value: '',
+      gridData: [{
+        date: '2016-05-02',
+        name: 'John Smith',
+        address: 'No.1518,  Jinshajiang Road, Putuo District'
+      }, {
+        date: '2016-05-04',
+        name: 'John Smith',
+        address: 'No.1518,  Jinshajiang Road, Putuo District'
+      }, {
+        date: '2016-05-01',
+        name: 'John Smith',
+        address: 'No.1518,  Jinshajiang Road, Putuo District'
+      }, {
+        date: '2016-05-03',
+        name: 'John Smith',
+        address: 'No.1518,  Jinshajiang Road, Putuo District'
+      }]
+    }
+  },
+  methods: {
+    // v-el-drag-dialog onDrag callback function
+    handleDrag() {
+      this.$refs.select.blur()
+    }
+  }
+}
+</script>
