@@ -59,7 +59,7 @@ export default {
 
       if (len < 1) {
         this.typeMessage = 'error';
-        this.message = 'BItte wählen SIe eine Datei';
+        this.message = 'Bitte wählen Sie eine Datei aus';
         return;
       }
 
@@ -73,7 +73,7 @@ export default {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(() => {
-          
+
           this.message = len == 1 ? 'Die Datei wurde erfolgreich hochgeladen' : 'Die Dateien wurden erfolgreich hochgeladen' ;
           this.typeMessage = 'success';
         })
